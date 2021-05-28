@@ -15,6 +15,8 @@ namespace Warehouse
         {
             this.ValidateProductName(product);
             this.ValidateProductAmount(amount);         
+            foreach (var p in this.products) if (p.ProductName == product) { p.IncreaseAmount(amount); return; }
+            this.products.Add(new ProductInfo(product, amount));
         }
 
         public int CurrentStock(string product)
