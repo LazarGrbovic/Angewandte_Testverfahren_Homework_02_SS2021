@@ -31,5 +31,17 @@ namespace Warehouse
         private void ValidateProductName(string name) { if (string.IsNullOrEmpty(name)) throw new InvalidProductNameException(); }        
 
         private void ValidateProductAmount(int amount) { if (amount < 1) throw new InvalidProductAmountException(); }
+
+        private class ProductInfo
+        {
+            public int Amount { get; set; }
+            public string ProductName { get; set; }
+
+            public ProductInfo (string productName, int amount)
+            {
+                this.ProductName = productName;
+                this.Amount = amount;
+            }
+        }
     }
 }
