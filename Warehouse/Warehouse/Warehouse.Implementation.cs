@@ -26,7 +26,8 @@ namespace Warehouse
         public bool HasProduct(string product)
         {
             this.ValidateProductName(product);
-            throw new NotImplementedException();
+            foreach(var p in this.products) { if (p.ProductName == product) return true; }
+            return false;
         }
 
         public void TakeStock(string product, int amount)
