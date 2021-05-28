@@ -15,7 +15,7 @@ namespace Warehouse
 
         public bool IsFilled()
         {
-            throw new NotImplementedException();
+            return this.isFilled;
         }
 
         public bool CanFillOrder(IWarehouse warehouse)
