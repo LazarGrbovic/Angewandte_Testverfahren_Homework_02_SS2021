@@ -16,4 +16,9 @@ namespace Warehouse
     {
         public override string Message { get { return "No Such Product Exists"; }}
     }
+
+    public class InsufficientStockException : Exception
+    {
+        public override string Message { get {return "Insufficient Stock for the Product"; }}
+    }
 }
