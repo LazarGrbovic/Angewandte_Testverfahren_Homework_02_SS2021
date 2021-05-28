@@ -24,7 +24,20 @@ namespace Warehouse
 
         public bool CanFillOrder(IWarehouse warehouse)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (warehouse.HasProduct(this.ProductName))
+                {
+                    if(warehouse.CurrentStock(this.ProductName) - this.ProductAmount < 0) return false;
+                    return true;
+                }
+
+                return false;
+            }
+            catch (System.Exception e)
+            {                
+                throw e;
+            }
         }
 
         public void Fill(IWarehouse warehouse)
