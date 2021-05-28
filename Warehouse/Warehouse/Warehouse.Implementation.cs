@@ -6,22 +6,26 @@ namespace Warehouse
     {
         public void AddStock(string product, int amount)
         {
-            throw new NotImplementedException();
+            this.ValidateProductName(product);
         }
 
         public int CurrentStock(string product)
         {
+            this.ValidateProductName(product);
             throw new NotImplementedException();
         }
 
         public bool HasProduct(string product)
         {
+            this.ValidateProductName(product);
             throw new NotImplementedException();
         }
 
         public void TakeStock(string product, int amount)
         {
-            throw new NotImplementedException();
+            this.ValidateProductName(product);            
         }
+
+        private void ValidateProductName(string name) { if (string.IsNullOrEmpty(name)) throw new InvalidProductNameException(); }        
     }
 }
