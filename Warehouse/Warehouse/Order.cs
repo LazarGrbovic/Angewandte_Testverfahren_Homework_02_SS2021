@@ -42,7 +42,17 @@ namespace Warehouse
 
         public void Fill(IWarehouse warehouse)
         {
-            throw new NotImplementedException();
+            if (this.IsFilled()) throw new OrderAlreadyFilledException();
+
+            try
+            {
+                warehouse.TakeStock(this.ProductName, this.ProductAmount);
+                this.isFilled = true;
+            }
+            catch (System.Exception e)
+            {                
+                throw e;
+            }
         }        
 
         private void ValidateProductName(string name)
