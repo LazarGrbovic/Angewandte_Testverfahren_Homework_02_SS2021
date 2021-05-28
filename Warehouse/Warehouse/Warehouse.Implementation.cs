@@ -37,9 +37,10 @@ namespace Warehouse
         public void TakeStock(string product, int amount)
         {
             this.ValidateProductName(product); 
-            this.ValidateProductAmount(amount);           
+            this.ValidateProductAmount(amount);
+            if (!this.HasProduct(product)) throw new NoSuchProductException();           
         }
-
+        
         private void ValidateProductName(string name) { if (string.IsNullOrEmpty(name)) throw new InvalidProductNameException(); }        
 
         private void ValidateProductAmount(int amount) { if (amount < 1) throw new InvalidProductAmountException(); }
