@@ -11,4 +11,9 @@ namespace Warehouse
     {
         public override string Message { get { return "Invalid Product Amount"; }}
     }
+
+    public class NoSuchProductException : Exception
+    {
+        public override string Message { get { return "No Such Product Exists"; }}
+    }
 }
