@@ -39,6 +39,7 @@ namespace Warehouse
             this.ValidateProductName(product); 
             this.ValidateProductAmount(amount);
             if (!this.HasProduct(product)) throw new NoSuchProductException();           
+            foreach (var p in products) if (p.ProductName == product) { PerformTakeStockOperation(p, amount); break;}
         }
 
         private void PerformTakeStockOperation(ProductInfo product, int amountToTake)
