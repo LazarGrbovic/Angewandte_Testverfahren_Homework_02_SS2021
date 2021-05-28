@@ -14,7 +14,7 @@ namespace Warehouse
         public void AddStock(string product, int amount)
         {
             this.ValidateProductName(product);
-            this.ValidateProductAmount(amount);
+            this.ValidateProductAmount(amount);         
         }
 
         public int CurrentStock(string product)
@@ -44,14 +44,17 @@ namespace Warehouse
 
         private class ProductInfo
         {
-            public int Amount { get; set; }
-            public string ProductName { get; set; }
+            public int Amount { get; private set; }
+            public string ProductName { get; private set; }
 
             public ProductInfo (string productName, int amount)
             {
                 this.ProductName = productName;
                 this.Amount = amount;
             }
+
+            public void IncreaseAmount(int amount) { this.Amount += amount; }
+            public void DecreaseAmount(int amount) { this.Amount -= amount; } 
         }
     }
 }
