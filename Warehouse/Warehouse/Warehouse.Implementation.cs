@@ -20,7 +20,9 @@ namespace Warehouse
         public int CurrentStock(string product)
         {
             this.ValidateProductName(product);
-            throw new NotImplementedException();
+            if (!this.HasProduct(product)) throw new NoSuchProductException();
+            foreach (var p in this.products) { if (p.ProductName == product) return p.Amount; }
+            throw new NoSuchProductException(); // Had to be thrown, as otherwise the Compailer complains (since this method must return an Integer)
         }
 
         public bool HasProduct(string product)
