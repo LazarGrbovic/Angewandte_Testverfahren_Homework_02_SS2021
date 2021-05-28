@@ -4,7 +4,7 @@ namespace Warehouse.Test
 {
     [TestClass]
     public class Warehouse_Exceptions_Tests
-    {
+    {        
         [DataTestMethod]
         [DataRow("", 1)]
         [DataRow(null, 1)]
@@ -13,6 +13,36 @@ namespace Warehouse.Test
         {
             var w = new WarehouseImplementation();
             w.AddStock(name, amount);
+        }
+
+        [DataTestMethod]
+        [DataRow("", 1)]
+        [DataRow(null, 1)]
+        [ExpectedException(typeof(InvalidProductNameException))]
+        public void Warehouse_CurrentStock_Method_Throws_Exception_On_Invalid_Name(string name)
+        {
+            var w = new WarehouseImplementation();
+            w.CurrentStock(name);
+        }
+
+        [DataTestMethod]
+        [DataRow("", 1)]
+        [DataRow(null, 1)]
+        [ExpectedException(typeof(InvalidProductNameException))]
+        public void Warehouse_HasProduct_Method_Throws_Exception_On_Invalid_Name(string name)
+        {
+            var w = new WarehouseImplementation();
+            w.HasProduct(name);
+        }
+
+        [DataTestMethod]
+        [DataRow("", 1)]
+        [DataRow(null, 1)]
+        [ExpectedException(typeof(InvalidProductNameException))]
+        public void Warehouse_TakeStock_Method_Throws_Exception_On_Invalid_Name(string name, int amount)
+        {
+            var w = new WarehouseImplementation();
+            w.TakeStock(name, amount);
         }
     }
 }
