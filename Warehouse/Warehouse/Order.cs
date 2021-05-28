@@ -4,9 +4,13 @@ namespace Warehouse
 {
     public class Order
     {
+        private bool isFilled;
+        public string ProductName { get; private set; }
+
+        public int ProductAmount { get; private set; }
         public Order(string product, int amount)
         {
-
+            this.isFilled = false;                
         }
 
         public bool IsFilled()
