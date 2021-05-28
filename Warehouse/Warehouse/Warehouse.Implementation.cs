@@ -5,6 +5,12 @@ namespace Warehouse
 {
     public class WarehouseImplementation : IWarehouse
     {
+        private List<ProductInfo> products;
+
+        public WarehouseImplementation ()
+        {
+            this.products = new List<ProductInfo>();
+        }
         public void AddStock(string product, int amount)
         {
             this.ValidateProductName(product);
