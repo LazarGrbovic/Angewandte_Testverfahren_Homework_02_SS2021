@@ -26,8 +26,19 @@ namespace Warehouse
         public void Fill(IWarehouse warehouse)
         {
             throw new NotImplementedException();
+        }        
+
+        private void ValidateProductName(string name)
+        {
+            if (string.IsNullOrEmpty(name)) throw new InvalidProductNameException();
         }
-        
+
+        private void ValidateProductAmount(int amount)
+        {
+            if (amount < 1) throw new InvalidProductAmountException();
+        }
     }
+
+    
 
 }
