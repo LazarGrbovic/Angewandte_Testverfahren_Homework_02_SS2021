@@ -40,6 +40,14 @@ namespace Warehouse
             this.ValidateProductAmount(amount);
             if (!this.HasProduct(product)) throw new NoSuchProductException();           
         }
+
+        private void PerformTakeStockOperation(ProductInfo product, int amountToTake)
+        {
+            if (product == null) throw new NoSuchProductException();
+            if (product.Amount - amountToTake < 0) throw new InsufficientStockException();            
+        }
+
+        private void HandleAllProductsSold(ProductInfo product) => this.products.Remove(product);        
         
         private void ValidateProductName(string name) { if (string.IsNullOrEmpty(name)) throw new InvalidProductNameException(); }        
 
