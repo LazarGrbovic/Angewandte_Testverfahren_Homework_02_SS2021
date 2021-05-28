@@ -7,6 +7,7 @@ namespace Warehouse
         public void AddStock(string product, int amount)
         {
             this.ValidateProductName(product);
+            this.ValidateProductAmount(amount);
         }
 
         public int CurrentStock(string product)
@@ -23,9 +24,12 @@ namespace Warehouse
 
         public void TakeStock(string product, int amount)
         {
-            this.ValidateProductName(product);            
+            this.ValidateProductName(product); 
+            this.ValidateProductAmount(amount);           
         }
 
         private void ValidateProductName(string name) { if (string.IsNullOrEmpty(name)) throw new InvalidProductNameException(); }        
+
+        private void ValidateProductAmount(int amount) { if (amount < 1) throw new InvalidProductAmountException(); }
     }
 }
