@@ -19,6 +19,11 @@ namespace Warehouse
 
     public class InsufficientStockException : Exception
     {
-        public override string Message { get {return "Insufficient Stock for the Product"; }}
+        public override string Message { get {return "Insufficient Stock For The Product"; }}
+    }
+
+    public class OrderAlreadyFilledException : Exception
+    {
+        public override string Message { get {return "Order Has Already Been Filled"; }}
     }
 }
