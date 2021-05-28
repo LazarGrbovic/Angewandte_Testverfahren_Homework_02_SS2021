@@ -44,7 +44,10 @@ namespace Warehouse
         private void PerformTakeStockOperation(ProductInfo product, int amountToTake)
         {
             if (product == null) throw new NoSuchProductException();
-            if (product.Amount - amountToTake < 0) throw new InsufficientStockException();            
+            if (product.Amount - amountToTake < 0) throw new InsufficientStockException();
+
+            if (product.Amount - amountToTake == 0) this.HandleAllProductsSold(product);
+            else product.DecreaseAmount(amountToTake);            
         }
 
         private void HandleAllProductsSold(ProductInfo product) => this.products.Remove(product);        
