@@ -5,12 +5,14 @@ namespace Warehouse.Test
     [TestClass]
     public class Warehouse_Exceptions_Tests
     {
-        [TestMethod]
+        [DataTestMethod]
+        [DataRow("", 1)]
+        [DataRow(null, 1)]
         [ExpectedException(typeof(InvalidProductNameException))]
-        public void Warehouse_Add_Method_Throws_Exception_On_Invalid_Name()
+        public void Warehouse_Add_Method_Throws_Exception_On_Invalid_Name(string name, int amount)
         {
             var w = new WarehouseImplementation();
-            w.AddStock("", 1);
+            w.AddStock(name, amount);
         }
     }
 }
