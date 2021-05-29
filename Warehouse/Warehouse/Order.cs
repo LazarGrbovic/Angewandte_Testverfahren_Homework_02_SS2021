@@ -24,6 +24,8 @@ namespace Warehouse
 
         public bool CanFillOrder(IWarehouse warehouse)
         {
+            if (warehouse == null) throw new NullReferenceException(nameof(warehouse));
+
             try
             {
                 if (warehouse.HasProduct(this.ProductName))
@@ -42,6 +44,7 @@ namespace Warehouse
 
         public void Fill(IWarehouse warehouse)
         {
+            if (warehouse == null) throw new NullReferenceException(nameof(warehouse));
             if (this.IsFilled()) throw new OrderAlreadyFilledException();
 
             try
