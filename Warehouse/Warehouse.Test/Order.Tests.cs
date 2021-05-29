@@ -138,8 +138,8 @@ namespace Warehouse.Test
         public void Order_Correctly_Calls_IWarehouse_When_Inside_CanFillOrder_Method_For_An_Order_That_Can_Be_Filled(string name, int amount)
         {
             var mock = new Mock<IWarehouse>();            
-            mock.Setup(IWarehouse => IWarehouse.HasProduct(name)).Returns(true);
-            mock.Setup(IWarehouse => IWarehouse.CurrentStock(name)).Returns(10);
+            mock.Setup(iWarehouse => iWarehouse.HasProduct(name)).Returns(true);
+            mock.Setup(iWarehouse => iWarehouse.CurrentStock(name)).Returns(10);
 
             IWarehouse mockhause = mock.Object;                        
             var order = new Order(name, amount);
@@ -158,8 +158,8 @@ namespace Warehouse.Test
         public void Order_Correctly_Calls_IWarehouse_When_Inside_CanFillOrder_Method_For_An_Order_That_Can_Not_Be_Filled(string name, int amount, int amountToTake)
         {
             var mock = new Mock<IWarehouse>();            
-            mock.Setup(IWarehouse => IWarehouse.HasProduct(name)).Returns(true);
-            mock.Setup(IWarehouse => IWarehouse.CurrentStock(name)).Returns(amount);
+            mock.Setup(iWarehouse => iWarehouse.HasProduct(name)).Returns(true);
+            mock.Setup(iWarehouse => iWarehouse.CurrentStock(name)).Returns(amount);
 
             IWarehouse mockhause = mock.Object;                        
             var order = new Order(name, amountToTake);
