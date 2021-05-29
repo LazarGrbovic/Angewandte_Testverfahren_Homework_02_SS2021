@@ -13,6 +13,9 @@ namespace Warehouse.Test
         public void Warehouse_Add_Method_Throws_Exception_On_Invalid_Name(string name, int amount)
         {
             var w = new WarehouseImplementation();
+            w.AddStock("SomeProduct1", 1);            
+            w.AddStock("SomeProduct2", 2);
+            w.AddStock("SomeProduct3", 3);   
             w.AddStock(name, amount);
         }
 
@@ -23,6 +26,9 @@ namespace Warehouse.Test
         public void Warehouse_CurrentStock_Method_Throws_Exception_On_Invalid_Name(string name)
         {
             var w = new WarehouseImplementation();
+            w.AddStock("SomeProduct1", 1);            
+            w.AddStock("SomeProduct2", 2);
+            w.AddStock("SomeProduct3", 3);   
             w.CurrentStock(name);
         }
 
@@ -33,6 +39,9 @@ namespace Warehouse.Test
         public void Warehouse_HasProduct_Method_Throws_Exception_On_Invalid_Name(string name)
         {
             var w = new WarehouseImplementation();
+            w.AddStock("SomeProduct1", 1);            
+            w.AddStock("SomeProduct2", 2);
+            w.AddStock("SomeProduct3", 3);   
             w.HasProduct(name);
         }
 
@@ -43,6 +52,9 @@ namespace Warehouse.Test
         public void Warehouse_TakeStock_Method_Throws_Exception_On_Invalid_Name(string name, int amount)
         {
             var w = new WarehouseImplementation();
+            w.AddStock("SomeProduct1", 1);            
+            w.AddStock("SomeProduct2", 2);
+            w.AddStock("SomeProduct3", 3);   
             w.TakeStock(name, amount);
         }
         #endregion
@@ -73,6 +85,53 @@ namespace Warehouse.Test
             var w = new WarehouseImplementation();
             w.TakeStock(name, amount);
         }
+        #endregion
+        
+        #region NoSuchProductException
+        [DataTestMethod]
+        [DataRow("NonExistingProduct1")]
+        [DataRow("NonExistingProduct2")]
+        [DataRow("NonExistingProduct3")]
+        [ExpectedException(typeof(NoSuchProductException))]
+        public void Warehouse_CurrentStock_Method_Throws_Exception_On_NonExistingProduct(string name)
+        {
+            var w = new WarehouseImplementation();
+            w.AddStock("SomeProduct1", 1);
+            w.AddStock("SomeProduct2", 2);            
+            w.AddStock("SomeProduct3", 3);                
+            w.CurrentStock(name);
+        }
+
+        [DataTestMethod]
+        [DataRow("NonExistingProduct1", 1)]
+        [DataRow("NonExistingProduct2", 2)]
+        [DataRow("NonExistingProduct3", 3)]
+        [ExpectedException(typeof(NoSuchProductException))]
+        public void Warehouse_TakeStock_Method_Throws_Exception_On_NonExistingProduct(string name, int amount)
+        {
+            var w = new WarehouseImplementation();
+            w.AddStock("SomeProduct1", 1);
+            w.AddStock("SomeProduct2", 2);            
+            w.AddStock("SomeProduct3", 3);                
+            w.TakeStock(name, amount);
+        }
+        #endregion
+
+        #region InsufficientStockException
+        [DataTestMethod]
+        [DataRow("Product", 10, 11)]
+        [DataRow("Product", 100, 1000)]
+        [DataRow("Product", 1000, 1001 )]
+        [ExpectedException(typeof(InsufficientStockException))]
+        public void Warehouse_TakeStock_Method_Throws_Exception_On_InsufficientStockException(string name, int startingAmount, int amountToTake)
+        {
+            var w = new WarehouseImplementation();            
+            w.AddStock(name, startingAmount);                        
+            w.AddStock("SomeProduct1", 1);
+            w.AddStock("SomeProduct2", 2);            
+            w.AddStock("SomeProduct3", 3);    
+            w.TakeStock(name, amountToTake);
+        }   
         #endregion
     }
 
