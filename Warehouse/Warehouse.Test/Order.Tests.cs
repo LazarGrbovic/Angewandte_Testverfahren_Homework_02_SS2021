@@ -106,6 +106,24 @@ namespace Warehouse.Test
             o.Fill(w);
         }
         #endregion        
+        
+        #region Null_Reference_Exception
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void Order_CanFillOrder_Method_Throws_NullReferenceException_On_Null_IWarehouse()
+        {
+            var o = new Order("Product", 1);
+            o.CanFillOrder(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void Order_Fill_Method_Throws_NullReferenceException_On_Null_IWarehouse()
+        {
+            var o = new Order("Product", 1);
+            o.Fill(null);
+        }
+        #endregion
     }
 
     [TestClass]
