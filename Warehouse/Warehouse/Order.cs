@@ -10,8 +10,8 @@ namespace Warehouse
         public int ProductAmount { get; private set; }
         public Order(string product, int amount)
         {
-            this.ValidateProductName(product);
-            this.ValidateProductAmount(amount);
+            Validations.ValidateProductName(product);
+            Validations.ValidateProductAmount(amount);
             this.ProductName = product;
             this.ProductAmount = amount;
             this.isFilled = false;                
@@ -53,19 +53,6 @@ namespace Warehouse
             {                
                 throw e;
             }
-        }        
-
-        private void ValidateProductName(string name)
-        {
-            if (string.IsNullOrEmpty(name)) throw new InvalidProductNameException();
-        }
-
-        private void ValidateProductAmount(int amount)
-        {
-            if (amount < 1) throw new InvalidProductAmountException();
-        }
+        }                
     }
-
-    
-
 }
