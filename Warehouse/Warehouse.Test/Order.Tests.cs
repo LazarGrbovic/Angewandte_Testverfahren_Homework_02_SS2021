@@ -117,7 +117,7 @@ namespace Warehouse.Test
         [DataRow("Product3", 3)]
         
         
-        public void Order_Correctly_Calls_IWarehouse_When_Inside_CanFillOrder_Method(string name, int amount)
+        public void Order_Correctly_Calls_IWarehouse_When_Inside_CanFillOrder_Method_For_An_Order_That_Can_Be_Filled(string name, int amount)
         {
             var mock = new Mock<IWarehouse>();            
             mock.Setup(IWarehouse => IWarehouse.HasProduct(name)).Returns(true);
@@ -132,6 +132,26 @@ namespace Warehouse.Test
         }
 
         [DataTestMethod]
+        [DataRow("Product1", 1, 10)]
+        [DataRow("Product2", 2, 20)]
+        [DataRow("Product3", 3, 30)]
+        
+        
+        public void Order_Correctly_Calls_IWarehouse_When_Inside_CanFillOrder_Method_For_An_Order_That_Can_Not_Be_Filled(string name, int amount, int amountToTake)
+        {
+            var mock = new Mock<IWarehouse>();            
+            mock.Setup(IWarehouse => IWarehouse.HasProduct(name)).Returns(true);
+            mock.Setup(IWarehouse => IWarehouse.CurrentStock(name)).Returns(amount);
+
+            IWarehouse mockhause = mock.Object;                        
+            var order = new Order(name, amountToTake);
+
+            Assert.AreEqual(false, order.CanFillOrder(mockhause));
+            mock.Verify(cal => cal.HasProduct(name), Times.Once);
+            mock.Verify(cal => cal.CurrentStock(name), Times.Once);
+        }
+
+        [DataTestMethod]
         [DataRow("Product1", 1)]
         [DataRow("Product1", 2)]
         [DataRow("Product1", 3)]
@@ -139,7 +159,7 @@ namespace Warehouse.Test
         {
             var mock = new Mock<IWarehouse>();
             var order = new Order(name, amount);
-            IWarehouse mockhause = mock.Object;
+            IWarehouse mockhause = mock.Object;            
 
             order.Fill(mockhause);
             Assert.AreEqual(true, order.IsFilled());
