@@ -13,15 +13,15 @@ namespace Warehouse
         }
         public void AddStock(string product, int amount)
         {
-            this.ValidateProductName(product);
-            this.ValidateProductAmount(amount);         
+            Validations.ValidateProductName(product);
+            Validations.ValidateProductAmount(amount);         
             foreach (var p in this.products) if (p.ProductName == product) { p.IncreaseAmount(amount); return; }
             this.products.Add(new ProductInfo(product, amount));
         }
 
         public int CurrentStock(string product)
         {
-            this.ValidateProductName(product);
+            Validations.ValidateProductName(product);
             if (!this.HasProduct(product)) throw new NoSuchProductException();
             foreach (var p in this.products) { if (p.ProductName == product) return p.Amount; }
             throw new NoSuchProductException(); // Had to be thrown, as otherwise the Compiler complains (since this method must return an Integer)
@@ -29,15 +29,15 @@ namespace Warehouse
 
         public bool HasProduct(string product)
         {
-            this.ValidateProductName(product);
+            Validations.ValidateProductName(product);
             foreach(var p in this.products) { if (p.ProductName == product) return true; }
             return false;
         }
 
         public void TakeStock(string product, int amount)
         {
-            this.ValidateProductName(product); 
-            this.ValidateProductAmount(amount);
+            Validations.ValidateProductName(product); 
+            Validations.ValidateProductAmount(amount);
             if (!this.HasProduct(product)) throw new NoSuchProductException();           
             foreach (var p in products) if (p.ProductName == product) { PerformTakeStockOperation(p, amount); break;}
         }
@@ -51,12 +51,8 @@ namespace Warehouse
             else product.DecreaseAmount(amountToTake);            
         }
 
-        private void HandleAllProductsSold(ProductInfo product) => this.products.Remove(product);        
+        private void HandleAllProductsSold(ProductInfo product) => this.products.Remove(product);              
         
-        private void ValidateProductName(string name) { if (string.IsNullOrEmpty(name)) throw new InvalidProductNameException(); }        
-
-        private void ValidateProductAmount(int amount) { if (amount < 1) throw new InvalidProductAmountException(); }
-
         private class ProductInfo
         {
             public int Amount { get; private set; }
