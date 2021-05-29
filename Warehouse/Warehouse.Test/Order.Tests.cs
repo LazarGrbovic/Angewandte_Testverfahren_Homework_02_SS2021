@@ -107,4 +107,43 @@ namespace Warehouse.Test
         }
         #endregion        
     }
+
+    [TestClass]
+    public class Order_Mock_Tests
+    {
+        [DataTestMethod]
+        [DataRow("Product1", 1)]
+        [DataRow("Product2", 2)]
+        [DataRow("Product3", 3)]
+        
+        
+        public void Order_Correctly_Calls_IWarehouse_When_Inside_CanFillOrder_Method(string name, int amount)
+        {
+            var mock = new Mock<IWarehouse>();            
+            mock.Setup(IWarehouse => IWarehouse.HasProduct(name)).Returns(true);
+            mock.Setup(IWarehouse => IWarehouse.CurrentStock(name)).Returns(10);
+
+            IWarehouse mockhause = mock.Object;                        
+            var order = new Order(name, amount);
+
+            Assert.AreEqual(true, order.CanFillOrder(mockhause));
+            mock.Verify(cal => cal.HasProduct(name), Times.Once);
+            mock.Verify(cal => cal.CurrentStock(name), Times.Once);
+        }
+
+        [DataTestMethod]
+        [DataRow("Product1", 1)]
+        [DataRow("Product1", 2)]
+        [DataRow("Product1", 3)]
+        public void Order_Correctly_Calls_IWarehouse_When_Inside_Fill_Method(string name, int amount)
+        {
+            var mock = new Mock<IWarehouse>();
+            var order = new Order(name, amount);
+            IWarehouse mockhause = mock.Object;
+
+            order.Fill(mockhause);
+            Assert.AreEqual(true, order.IsFilled());
+            mock.Verify(cal => cal.TakeStock(name, amount), Times.Once);
+        }
+    }
 }
